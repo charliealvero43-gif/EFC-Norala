@@ -1,0 +1,250 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REMIT PRO - Business System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>REMIT PRO</h1>
+    <p>Business Management & Remittance System</p>
+</header>
+
+<nav>
+    BUSINESS REMITTANCE DASHBOARD
+</nav>
+
+<div class="container">
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>IN (BAGS)</h3>
+            <p id="inDisplay">0</p>
+        </div>
+
+        <div class="card">
+            <h3>OUT (BAGS)</h3>
+            <p id="outDisplay">0</p>
+        </div>
+
+        <div class="card">
+            <h3>AVAILABLE STOCKS</h3>
+            <p id="stockDisplay">0</p>
+        </div>
+
+        <div class="card">
+            <h3>TOTAL SALES</h3>
+            <p id="salesDisplay">₱0.00</p>
+        </div>
+
+        <div class="card">
+            <h3>EXPENSES</h3>
+            <p id="expenseDisplay">₱0.00</p>
+        </div>
+
+        <div class="card">
+            <h3>REMITTANCE</h3>
+            <p id="remitDisplay">₱0.00</p>
+        </div>
+
+    </div>
+
+    <div class="section">
+        <h2>Daily Remittance Entry</h2>
+
+        <label>Date</label>
+        <input type="date" id="date">
+
+        <label>IN (Bags)</label>
+        <input type="number" id="inBags" value="0">
+
+        <label>OUT (Bags)</label>
+        <input type="number" id="outBags" value="0">
+
+        <label>Left Over (Bags)</label>
+        <input type="number" id="leftOver" value="0">
+
+        <label>Short / Damage (Bags)</label>
+        <input type="number" id="damage" value="0">
+
+        <label>Sales Amount (₱)</label>
+        <input type="number" id="sales" value="0">
+
+        <label>Expenses (₱)</label>
+        <input type="number" id="expenses" value="0">
+
+        <label>Suweldo (₱)</label>
+        <input type="number" id="salary" value="0">
+
+        <label>Actual Remittance (₱)</label>
+        <input type="number" id="actualRemit" value="0">
+
+        <button onclick="saveRemittance()">SAVE REMITTANCE</button>
+</button>
+
+<button onclick="resetAllData()" class="delete-all">
+    RESET ALL DATA
+</button>
+
+    </div>
+
+    <div class="section">
+        <h2>Remittance Summary</h2>
+       <!-- RICE AND SOFTDRINK MONITORING -->
+
+<div class="section">
+    <h2>Rice & Softdrink Monitoring</h2>
+
+    <div class="form-grid">
+
+        <div>
+            <label>Rice IN (Bags)</label>
+            <input type="number" id="riceIn" value="0">
+        </div>
+
+        <div>
+            <label>Rice OUT (Bags)</label>
+            <input type="number" id="riceOut" value="0">
+        </div>
+
+        <div>
+            <label>Softdrink IN (Cases)</label>
+            <input type="number" id="softIn" value="0">
+        </div>
+
+        <div>
+            <label>Softdrink OUT (Cases)</label>
+            <input type="number" id="softOut" value="0">
+        </div>
+
+    </div>
+
+    <button onclick="saveStockMovement()">SAVE STOCK MOVEMENT</button>
+
+    <h3>Available Stocks</h3>
+
+    <p>Rice: <span id="riceStock">0</span> Bags</p>
+    <p>Softdrink: <span id="softStock">0</span> Cases</p>
+</div>
+
+
+<!-- DELIVERY MANAGEMENT -->
+
+<div class="section">
+
+    <h2>Delivery Management</h2>
+
+    <label>Delivery Date</label>
+    <input type="date" id="deliveryDate">
+
+    <label>Supplier Name</label>
+    <input type="text" id="supplier" placeholder="Enter supplier name">
+
+    <label>Product Name</label>
+
+    <select id="deliveryProduct">
+        <option value="Harina">Harina</option>
+        <option value="Rice">Rice</option>
+        <option value="Softdrink">Softdrink</option>
+        <option value="Mantika">Mantika</option>
+        <option value="Toyo">Toyo</option>
+        <option value="Langgaw">Langgaw</option>
+        <option value="Ketchup">Ketchup</option>
+        <option value="Supot">Supot</option>
+        <option value="Tayni">Tayni</option>
+    </select>
+
+    <label>Quantity Delivered</label>
+    <input type="number" id="deliveryQty" min="1" placeholder="Enter quantity">
+
+    <button onclick="saveDelivery()">SAVE DELIVERY</button>
+
+</div>
+
+
+<!-- PRODUCT INVENTORY -->
+
+<div class="section">
+
+    <h2>Product Inventory</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Beginning Stock</th>
+                <th>Quantity Delivered</th>
+                <th>Available Stock</th>
+            </tr>
+        </thead>
+
+        <tbody id="productInventory"></tbody>
+    </table>
+
+</div>
+
+
+<!-- DELIVERY HISTORY -->
+
+<div class="section">
+
+    <h2>Delivery History</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Supplier</th>
+                <th>Product</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+
+        <tbody id="deliveryHistory"></tbody>
+    </table>
+
+</div>
+        <table>
+            <tr><th>Description</th><th>Amount</th></tr>
+            <tr><td>Total Sales</td><td id="summarySales">₱0.00</td></tr>
+            <tr><td>Expenses</td><td id="summaryExpenses">₱0.00</td></tr>
+            <tr><td>Suweldo</td><td id="summarySalary">₱0.00</td></tr>
+            <tr><td>Expected Remittance</td><td id="expectedRemit">₱0.00</td></tr>
+            <tr><td>Actual Remittance</td><td id="actualSummary">₱0.00</td></tr>
+            <tr><td>Short / Excess Remittance</td><td id="difference">₱0.00</td></tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Remittance History</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>IN</th>
+                    <th>OUT</th>
+                    <th>Left Over</th>
+                    <th>Damage</th>
+                    <th>Sales</th>
+                    <th>Expenses</th>
+                    <th>Suweldo</th>
+                    <th>Remittance</th>
+                </tr>
+            </thead>
+
+            <tbody id="history"></tbody>
+        </table>
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
+```

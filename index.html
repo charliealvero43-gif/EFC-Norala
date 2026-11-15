@@ -1,359 +1,250 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>EFC Norala  Business Management</title>
-
+    <title>REMIT PRO - Business System</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-<!-- LOGIN PAGE -->
-
-<div id="loginPage" class="login-container">
-
-    <div class="login-box">
-
-        <h1>REMIT Norala</h1>
-        <p>Business Management System</p>
-
-        <form id="loginForm">
-
-            <label>Username</label>
-            <input type="text" id="username"
-                   placeholder="Enter Username" required>
-
-            <label>Password</label>
-            <input type="password" id="password"
-                   placeholder="Enter Password" required>
-
-            <button type="submit">LOGIN</button>
-
-            <p id="loginMessage"></p>
-
-        </form>
-
-    </div>
-
-</div>
-<div class="sidebar">
-
-    <h2>REMIT PRO</h2>
-
-    <a href="#dashboard">Dashboard</a>
-    <a href="#business">Business Records</a>
-    <a href="#rice">Rice Monitoring</a>
-    <a href="#softdrink">Softdrink Monitoring</a>
-    <a href="#delivery">Delivery</a>
-    <a href="#inventory">Product Inventory</a>
-    <a href="#history">History</a>
-
-</div>
-
-<div class="main">
 
 <header>
-    <h1>EFC Norala</h1>
-    <p>Remittance and Business Management System</p>
-    <button type="button" id="resetButton" class="reset-btn">
-    RESET SYSTEM
-</button>
+    <h1>REMIT PRO</h1>
+    <p>Business Management & Remittance System</p>
 </header>
 
-<!-- DASHBOARD -->
+<nav>
+    BUSINESS REMITTANCE DASHBOARD
+</nav>
 
-<section id="dashboard">
+<div class="container">
 
-    <h2>Financial Dashboard</h2>
-
-    <div class="dashboard">
+    <div class="cards">
 
         <div class="card">
-            <h3>IN</h3>
-            <h2 id="inTotal">₱0.00</h2>
+            <h3>IN (BAGS)</h3>
+            <p id="inDisplay">0</p>
         </div>
 
         <div class="card">
-            <h3>OUT</h3>
-            <h2 id="outTotal">₱0.00</h2>
+            <h3>OUT (BAGS)</h3>
+            <p id="outDisplay">0</p>
         </div>
 
         <div class="card">
-            <h3>Available Stocks</h3>
-            <h2 id="available">₱0.00</h2>
+            <h3>AVAILABLE STOCKS</h3>
+            <p id="stockDisplay">0</p>
         </div>
 
         <div class="card">
-            <h3>Sale</h3>
-            <h2 id="sale">₱0.00</h2>
+            <h3>TOTAL SALES</h3>
+            <p id="salesDisplay">₱0.00</p>
         </div>
 
         <div class="card">
-            <h3>Left-over</h3>
-            <h2 id="leftover">₱0.00</h2>
+            <h3>EXPENSES</h3>
+            <p id="expenseDisplay">₱0.00</p>
         </div>
 
         <div class="card">
-            <h3>Discrepancy</h3>
-            <h2 id="discrepancy">₱0.00</h2>
-        </div>
-
-        <div class="card">
-            <h3>Short</h3>
-            <h2 id="short">₱0.00</h2>
-        </div>
-
-        <div class="card">
-            <h3>Damage</h3>
-            <h2 id="damage">₱0.00</h2>
-        </div>
-
-        <div class="card">
-            <h3>Total Sale</h3>
-            <h2 id="totalSale">₱0.00</h2>
-        </div>
-
-        <div class="card">
-            <h3>Expenses</h3>
-            <h2 id="expenses">₱0.00</h2>
-        </div>
-
-        <div class="card">
-            <h3>Suweldo</h3>
-            <h2 id="salary">₱0.00</h2>
-        </div>
-
-        <div class="card">
-            <h3>Remitted</h3>
-            <h2 id="remitted">₱0.00</h2>
+            <h3>REMITTANCE</h3>
+            <p id="remitDisplay">₱0.00</p>
         </div>
 
     </div>
 
-</section>
-
-<!-- BUSINESS RECORDS -->
-
-<section id="business">
-
-    <h2>Daily Business Records</h2>
-
-    <form id="businessForm">
+    <div class="section">
+        <h2>Daily Remittance Entry</h2>
 
         <label>Date</label>
-        <input type="date" id="date" required>
+        <input type="date" id="date">
 
-        <label>IN</label>
-        <input type="number" id="cashIn" min="0" step="1" value="" required>
+        <label>IN (Bags)</label>
+        <input type="number" id="inBags" value="0">
 
-        <label>OUT</label>
-        <input type="number" id="cashOut" min="0" step="1" value="" required>
+        <label>OUT (Bags)</label>
+        <input type="number" id="outBags" value="0">
 
-        <label>Sale</label>
-        <input type="number" id="saleInput" min="0" step="1" value="" required>
+        <label>Left Over (Bags)</label>
+        <input type="number" id="leftOver" value="0">
 
-        <label>Left-over</label>
-        <input type="number" id="leftInput" min="0" step="1" value="" required>
+        <label>Short / Damage (Bags)</label>
+        <input type="number" id="damage" value="0">
 
-        <label>Actual Available Cash</label>
-        <input type="number" id="actualCash" min="0" step="1" value="" required>
+        <label>Sales Amount (₱)</label>
+        <input type="number" id="sales" value="0">
 
-        <label>Damage</label>
-        <input type="number" id="damageInput" min="0" step="1" value="" required>
+        <label>Expenses (₱)</label>
+        <input type="number" id="expenses" value="0">
 
-        <label>Expenses</label>
-        <input type="number" id="expenseInput" min="0" step="1" value="" required>
+        <label>Suweldo (₱)</label>
+        <input type="number" id="salary" value="0">
 
-        <label>Suweldo</label>
-        <input type="number" id="salaryInput" min="0" step="1" value="" required>
+        <label>Actual Remittance (₱)</label>
+        <input type="number" id="actualRemit" value="0">
 
-        <label>Remitted</label>
-        <input type="number" id="remittedInput" min="0" step="1" value="" required>
+        <button onclick="saveRemittance()">SAVE REMITTANCE</button>
+</button>
 
-        <button type="submit">SAVE BUSINESS RECORD</button>
+<button onclick="resetAllData()" class="delete-all">
+    RESET ALL DATA
+</button>
 
-    </form>
+    </div>
 
-</section>
+    <div class="section">
+        <h2>Remittance Summary</h2>
+       <!-- RICE AND SOFTDRINK MONITORING -->
 
-<!-- RICE MONITORING -->
+<div class="section">
+    <h2>Rice & Softdrink Monitoring</h2>
 
-<section id="rice">
+    <div class="form-grid">
 
-    <h2>Rice Monitoring</h2>
+        <div>
+            <label>Rice IN (Bags)</label>
+            <input type="number" id="riceIn" value="0">
+        </div>
 
-    <form id="riceForm">
+        <div>
+            <label>Rice OUT (Bags)</label>
+            <input type="number" id="riceOut" value="0">
+        </div>
 
-        <label>Rice IN (Sacks)</label>
-        <input type="number" id="riceIn" min="0" value="">
+        <div>
+            <label>Softdrink IN (Cases)</label>
+            <input type="number" id="softIn" value="0">
+        </div>
 
-        <label>Rice OUT (Sacks)</label>
-        <input type="number" id="riceOut" min="0" value="">
+        <div>
+            <label>Softdrink OUT (Cases)</label>
+            <input type="number" id="softOut" value="0">
+        </div>
 
-        <button type="submit">SAVE RICE RECORD</button>
+    </div>
 
-    </form>
+    <button onclick="saveStockMovement()">SAVE STOCK MOVEMENT</button>
 
-    <h3>Available Rice:
-        <span id="riceAvailable">0</span> Sacks
-    </h3>
+    <h3>Available Stocks</h3>
 
-</section>
+    <p>Rice: <span id="riceStock">0</span> Bags</p>
+    <p>Softdrink: <span id="softStock">0</span> Cases</p>
+</div>
 
-<!-- SOFTDRINK MONITORING -->
 
-<section id="softdrink">
+<!-- DELIVERY MANAGEMENT -->
 
-    <h2>Softdrink Monitoring</h2>
-
-    <form id="drinkForm">
-
-        <label>Softdrink IN (Cases)</label>
-        <input type="number" id="drinkIn" min="0" value="">
-
-        <label>Softdrink OUT (Cases)</label>
-        <input type="number" id="drinkOut" min="0" value="">
-
-        <button type="submit">SAVE SOFTDRINK RECORD</button>
-
-    </form>
-
-    <h3>Available Softdrink:
-        <span id="drinkAvailable">0</span> Cases
-    </h3>
-
-</section>
-
-<!-- DELIVERY -->
-
-<section id="delivery">
+<div class="section">
 
     <h2>Delivery Management</h2>
 
-    <form id="deliveryForm">
+    <label>Delivery Date</label>
+    <input type="date" id="deliveryDate">
 
-        <label>Delivery Date</label>
-        <input type="date" id="deliveryDate" required>
+    <label>Supplier Name</label>
+    <input type="text" id="supplier" placeholder="Enter supplier name">
 
-        <label>Supplier Name</label>
-        <input type="text" id="supplier" required>
+    <label>Product Name</label>
 
-        <label>Product Name</label>
+    <select id="deliveryProduct">
+        <option value="Harina">Harina</option>
+        <option value="Rice">Rice</option>
+        <option value="Softdrink">Softdrink</option>
+        <option value="Mantika">Mantika</option>
+        <option value="Toyo">Toyo</option>
+        <option value="Langgaw">Langgaw</option>
+        <option value="Ketchup">Ketchup</option>
+        <option value="Supot">Supot</option>
+        <option value="Tayni">Tayni</option>
+    </select>
 
-        <select id="deliveryProduct" required>
-            <option value="">Select Product</option>
-            <option>Harina</option>
-            <option>Rice</option>
-            <option>Softdrink</option>
-            <option>Mantika</option>
-            <option>Toyo</option>
-            <option>Langgaw</option>
-            <option>Ketchup</option>
-            <option>Supot</option>
-            <option>Tayni</option>
-        </select>
+    <label>Quantity Delivered</label>
+    <input type="number" id="deliveryQty" min="1" placeholder="Enter quantity">
 
-        <label>Quantity</label>
-        <input type="number" id="deliveryQuantity" min="1" required>
+    <button onclick="saveDelivery()">SAVE DELIVERY</button>
 
-        <label>Price Per Unit</label>
-        <input type="number" id="deliveryPrice" min="0" step="1" required>
+</div>
 
-        <button type="submit">SAVE DELIVERY</button>
-
-    </form>
-
-    <h3>Delivery History</h3>
-
-    <div class="table-container">
-
-        <table>
-
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Supplier</th>
-                    <th>Product</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-
-            <tbody id="deliveryList"></tbody>
-
-        </table>
-
-    </div>
-
-</section>
 
 <!-- PRODUCT INVENTORY -->
 
-<section id="inventory">
+<div class="section">
 
     <h2>Product Inventory</h2>
 
-    <div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Beginning Stock</th>
+                <th>Quantity Delivered</th>
+                <th>Available Stock</th>
+            </tr>
+        </thead>
 
+        <tbody id="productInventory"></tbody>
+    </table>
+
+</div>
+
+
+<!-- DELIVERY HISTORY -->
+
+<div class="section">
+
+    <h2>Delivery History</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Supplier</th>
+                <th>Product</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+
+        <tbody id="deliveryHistory"></tbody>
+    </table>
+
+</div>
         <table>
-
-            <thead>
-                <tr>
-                    <th>Product Name</th>
-                    <th>Available Stocks</th>
-                </tr>
-            </thead>
-
-            <tbody id="inventoryList"></tbody>
-
+            <tr><th>Description</th><th>Amount</th></tr>
+            <tr><td>Total Sales</td><td id="summarySales">₱0.00</td></tr>
+            <tr><td>Expenses</td><td id="summaryExpenses">₱0.00</td></tr>
+            <tr><td>Suweldo</td><td id="summarySalary">₱0.00</td></tr>
+            <tr><td>Expected Remittance</td><td id="expectedRemit">₱0.00</td></tr>
+            <tr><td>Actual Remittance</td><td id="actualSummary">₱0.00</td></tr>
+            <tr><td>Short / Excess Remittance</td><td id="difference">₱0.00</td></tr>
         </table>
-
     </div>
 
-</section>
-
-<!-- HISTORY -->
-
-<section id="history">
-
-    <h2>Business History</h2>
-
-    <input type="text" id="search" placeholder="Search date...">
-
-    <div class="table-container">
+    <div class="section">
+        <h2>Remittance History</h2>
 
         <table>
-
             <thead>
                 <tr>
                     <th>Date</th>
                     <th>IN</th>
                     <th>OUT</th>
-                    <th>Available</th>
-                    <th>Sale</th>
-                    <th>Left-over</th>
-                    <th>Short</th>
+                    <th>Left Over</th>
                     <th>Damage</th>
+                    <th>Sales</th>
                     <th>Expenses</th>
                     <th>Suweldo</th>
-                    <th>Remitted</th>
+                    <th>Remittance</th>
                 </tr>
             </thead>
 
-            <tbody id="recordList"></tbody>
-
+            <tbody id="history"></tbody>
         </table>
-
     </div>
-
-</section>
 
 </div>
 
 <script src="script.js"></script>
-
 </body>
 </html>
+```

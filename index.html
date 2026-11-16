@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REMITPRO Business Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>REMITPRO</h2>
+    <p>BUSINESS MANAGEMENT</p>
+
+    <button onclick="showPage('dashboard')">Dashboard</button>
+    <button onclick="showPage('remittance')">Remittance</button>
+    <button onclick="showPage('inventory')">Product Inventory</button>
+    <button onclick="showPage('records')">Records</button>
+</div>
+
+<main class="main">
+
+<header>
+    <h1 id="pageTitle">Dashboard</h1>
+    <span id="currentDate"></span>
+</header>
+
+<!-- DASHBOARD -->
+
+<section id="dashboard" class="page active">
+
+    <h2>Business Overview</h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <p>Today's Remittance</p>
+            <h2 id="dashRemittance">₱0.00</h2>
+        </div>
+
+        <div class="card">
+            <p>Total Sales</p>
+            <h2 id="dashSales">₱0.00</h2>
+        </div>
+
+        <div class="card">
+            <p>Total Expenses</p>
+            <h2 id="dashExpenses">₱0.00</h2>
+        </div>
+
+        <div class="card">
+            <p>Total Delivered</p>
+            <h2 id="dashDelivered">0</h2>
+        </div>
+
+    </div>
+
+    <div class="box">
+        <h3>Recent Remittance</h3>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>In</th>
+                        <th>Out</th>
+                        <th>Sale</th>
+                        <th>Remittance</th>
+                    </tr>
+                </thead>
+
+                <tbody id="recentRecords"></tbody>
+            </table>
+        </div>
+    </div>
+
+</section>
+
+
+<!-- REMITTANCE -->
+
+<section id="remittance" class="page">
+
+    <div class="heading">
+        <h2>Remittance Management</h2>
+
+        <button class="reset" onclick="resetData('remittance')">
+            RESET REMITTANCE
+        </button>
+    </div>
+
+    <div class="box">
+
+        <h3>Remittance Entry</h3>
+
+        <form id="remittanceForm">
+
+            <div class="grid">
+
+                <label>Date
+                    <input type="date" id="rDate" required>
+                </label>
+
+                <label>In (Bags)
+                    <input type="number" id="rIn" min="0" value="0">
+                </label>
+
+                <label>Out (Bags)
+                    <input type="number" id="rOut" min="0" value="0">
+                </label>
+
+                <label>Available Stacks
+                    <input type="number" id="rAvailable" min="0" value="0">
+                </label>
+
+                <label>Sale (₱)
+                    <input type="number" id="rSale" min="0" step="0.01" value="0">
+                </label>
+
+                <label>Left Over (₱)
+                    <input type="number" id="rLeft" min="0" step="0.01" value="0">
+                </label>
+
+                <label>Short / Damage (₱)
+                    <input type="number" id="rShort" min="0" step="0.01" value="0">
+                </label>
+
+                <label>Expenses (₱)
+                    <input type="number" id="rExpenses" min="0" step="0.01" value="0">
+                </label>
+
+                <label>Suweldo (₱)
+                    <input type="number" id="rSalary" min="0" step="0.01" value="0">
+                </label>
+
+                <label>Remittance (₱)
+                    <input type="number" id="rRemittance" min="0" step="0.01" value="0">
+                </label>
+
+            </div>
+
+            <div class="summary">
+
+                <p>Total Sale:
+                    <b id="totalSale">₱0.00</b>
+                </p>
+
+                <p>Expected Cash:
+                    <b id="expectedCash">₱0.00</b>
+                </p>
+
+                <p>Cash Difference:
+                    <b id="cashDifference">₱0.00</b>
+                </p>
+
+            </div>
+
+            <button type="submit" class="save">
+                SAVE REMITTANCE
+            </button>
+
+            <button type="button" class="clear" onclick="clearRemittanceForm()">
+                CLEAR FORM
+            </button>
+
+        </form>
+
+    </div>
+
+    <div class="box">
+
+        <h3>Remittance History</h3>
+
+        <div class="table-container">
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>In</th>
+                        <th>Out</th>
+                        <th>Available</th>
+                        <th>Sale</th>
+                        <th>Left Over</th>
+                        <th>Short/Damage</th>
+                        <th>Expenses</th>
+                        <th>Suweldo</th>
+                        <th>Remittance</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="remittanceTable"></tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PRODUCT INVENTORY -->
+
+<section id="inventory" class="page">
+
+    <div class="heading">
+        <h2>Product Inventory</h2>
+
+        <button class="reset" onclick="resetData('inventory')">
+            RESET INVENTORY
+        </button>
+    </div>
+
+
+    <!-- PRODUCT DELIVERY -->
+
+    <div class="box">
+
+        <h3>Product Delivery</h3>
+
+        <div id="productQuantityList"></div>
+
+        <label>Date Delivered</label>
+
+        <input type="date" id="deliveryDate">
+
+        <button type="button" class="save" onclick="saveAllDeliveries()">
+            SAVE DELIVERY
+        </button>
+
+    </div>
+
+
+    <!-- PRODUCT SUMMARY -->
+
+    <div class="box">
+
+        <h3>Delivered Products Summary</h3>
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Total Delivered</th>
+                    </tr>
+                </thead>
+
+                <tbody id="productSummary"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- DELIVERY HISTORY -->
+
+    <div class="box">
+
+        <h3>Delivery History</h3>
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Date Delivered</th>
+                        <th>Product</th>
+                        <th>Quantity Delivered</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="deliveryTable"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- RECORDS -->
+
+<section id="records" class="page">
+
+    <h2>Data Management</h2>
+
+    <div class="box">
+
+        <h3>Remittance Records</h3>
+
+        <p id="recordRemittanceCount">0 records</p>
+
+        <button class="reset" onclick="resetData('remittance')">
+            RESET REMITTANCE ONLY
+        </button>
+
+    </div>
+
+    <div class="box">
+
+        <h3>Inventory Records</h3>
+
+        <p id="recordInventoryCount">0 deliveries</p>
+
+        <button class="reset" onclick="resetData('inventory')">
+            RESET INVENTORY ONLY
+        </button>
+
+    </div>
+
+    <div class="box">
+
+        <h3>Backup Data</h3>
+
+        <button class="save" onclick="exportBackup()">
+            DOWNLOAD BACKUP
+        </button>
+
+    </div>
+
+</section>
+
+</main>
+
+<script src="script.js"></script>
+
+</body>
+</html>

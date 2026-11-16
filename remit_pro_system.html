@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Remit Pro | Remittance & Inventory</title>
+<style>
+:root{--navy:#14243b;--blue:#2563eb;--bg:#f3f6fb;--ink:#1f2937;--muted:#64748b;--line:#e2e8f0;--green:#15803d;--red:#b91c1c}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:var(--navy);color:white;padding:22px max(18px,calc((100% - 1100px)/2));}
+header h1{margin:0 0 5px;font-size:25px}header p{margin:0;color:#cbd5e1}
+main{max-width:1100px;margin:22px auto;padding:0 16px}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+button,.tab{border:0;border-radius:8px;padding:10px 14px;cursor:pointer;font-weight:700;background:#e2e8f0;color:#1e293b}
+.tab.active,.primary{background:var(--blue);color:white}.danger{background:#fee2e2;color:var(--red)}.success{background:#dcfce7;color:var(--green)}
+.panel{display:none}.panel.active{display:block}.card{background:white;border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:16px;box-shadow:0 2px 8px #0f172a08}
+h2{font-size:20px;margin:0 0 14px}h3{font-size:16px;margin:0 0 12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+label{display:block;font-size:13px;font-weight:700;color:#475569;margin-bottom:5px}
+input,select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:7px;font:inherit;background:white}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:16px}
+.stat{background:white;border:1px solid var(--line);padding:15px;border-radius:10px}.stat small{color:var(--muted)}.stat strong{display:block;font-size:22px;margin-top:6px}
+.tablewrap{overflow-x:auto}table{border-collapse:collapse;width:100%;min-width:650px}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line);font-size:14px}th{background:#f8fafc;color:#475569}
+.note{font-size:13px;color:var(--muted);line-height:1.5}.amount{font-weight:700}.empty{text-align:center;color:var(--muted);padding:18px}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:10px 0 30px}
+@media(max-width:520px){header h1{font-size:21px}.card{padding:14px}.tabs button{flex:1}}
+</style>
+</head>
+<body>
+<header><h1>REMIT PRO</h1><p>Remittance Management & Product Inventory System</p></header>
+<main>
+<div class="tabs">
+<button class="tab active" data-tab="dashboard">Dashboard</button>
+<button class="tab" data-tab="remittance">Remittance</button>
+<button class="tab" data-tab="inventory">Product Inventory</button>
+<button class="tab" data-tab="history">History</button>
+</div>
+
+<section id="dashboard" class="panel active">
+<div class="stats">
+<div class="stat"><small>Total Remittance Recorded</small><strong id="dashRemit">₱0.00</strong></div>
+<div class="stat"><small>Total Sales Recorded</small><strong id="dashSales">₱0.00</strong></div>
+<div class="stat"><small>Inventory Products</small><strong id="dashProducts">0</strong></div>
+<div class="stat"><small>Total Delivered Quantity</small><strong id="dashDelivered">0</strong></div>
+</div>
+<div class="card"><h2>Welcome to Remit Pro</h2><p class="note">Use the Remittance tab to record daily sales, expenses, salary and remittance. Use Product Inventory to record delivered quantities and delivery dates. Data is saved in this browser automatically.</p>
+<div class="actions"><button class="primary" onclick="showTab('remittance')">Add Remittance</button><button class="success" onclick="showTab('inventory')">Add Delivered Products</button></div></div>
+<div class="card"><h3>Important</h3><p class="note">This version saves data on this device/browser using local storage. Export a backup regularly. If you clear browser data or use another phone/computer, records may not appear there.</p></div>
+</section>
+
+<section id="remittance" class="panel">
+<div class="card">
+<h2>Daily Remittance Entry</h2>
+<form id="remitForm">
+<div class="grid">
+<div><label for="rDate">Date</label><input id="rDate" type="date" required></div>
+<div><label for="riceIn">Rice In (bags)</label><input id="riceIn" type="number" min="0" step="1" value="0"></div>
+<div><label for="riceOut">Rice Out (bags)</label><input id="riceOut" type="number" min="0" step="1" value="0"></div>
+<div><label for="softIn">Softdrink In (cases)</label><input id="softIn" type="number" min="0" step="1" value="0"></div>
+<div><label for="softOut">Softdrink Out (cases)</label><input id="softOut" type="number" min="0" step="1" value="0"></div>
+<div><label for="available">Available Stock (optional)</label><input id="available" type="number" min="0" step="1" value="0"></div>
+<div><label for="sale">Sales (₱)</label><input id="sale" type="number" min="0" step="0.01" value="0"></div>
+<div><label for="leftover">Left Over (₱)</label><input id="leftover" type="number" min="0" step="0.01" value="0"></div>
+<div><label for="damage">Short / Damage (₱)</label><input id="damage" type="number" min="0" step="0.01" value="0"></div>
+<div><label for="expenses">Expenses (₱)</label><input id="expenses" type="number" min="0" step="0.01" value="0"></div>
+<div><label for="salary">Suweldo (₱)</label><input id="salary" type="number" min="0" step="0.01" value="0"></div>
+<div><label for="remitted">Remittance (₱)</label><input id="remitted" type="number" min="0" step="0.01" value="0"></div>
+</div>
+<p class="note">Total Sale is calculated from the Sales field. Net Expected = Sales − Expenses − Suweldo − Short/Damage. Left Over is recorded separately for reference.</p>
+<div class="actions"><button class="primary" type="submit">Save Remittance</button><button type="button" onclick="document.getElementById('remitForm').reset();setToday('rDate');">Clear Form</button></div>
+</form></div>
+<div class="card"><h3>Remittance Records</h3><div class="tablewrap"><table><thead><tr><th>Date</th><th>Rice In/Out</th><th>Softdrink In/Out</th><th>Sales</th><th>Expenses</th><th>Suweldo</th><th>Remittance</th><th>Action</th></tr></thead><tbody id="remitRows"></tbody></table></div>
+<div class="actions"><button class="danger" onclick="resetRemittances()">Reset Remittance Records Only</button></div>
+</div>
+</section>
+
+<section id="inventory" class="panel">
+<div class="card"><h2>Product Inventory — Delivered Only</h2>
+<form id="deliveryForm"><div class="grid">
+<div><label for="product">Product</label><select id="product" required></select></div>
+<div><label for="deliveredQty">Quantity Delivered</label><input id="deliveredQty" type="number" min="1" step="1" required placeholder="Enter delivered quantity"></div>
+<div><label for="deliveredDate">Date Delivered</label><input id="deliveredDate" type="date" required></div>
+</div><div class="actions"><button class="primary" type="submit">Save Delivered Quantity</button><button type="button" onclick="document.getElementById('deliveryForm').reset();setToday('deliveredDate');">Clear Form</button></div></form>
+<p class="note">Only delivered quantity and delivery date are recorded. Each saved delivery is added to that product's total delivered stock.</p></div>
+<div class="card"><h3>Current Product Totals</h3><div class="tablewrap"><table><thead><tr><th>Product</th><th>Total Delivered</th><th>Action</th></tr></thead><tbody id="productRows"></tbody></table></div></div>
+<div class="card"><h3>Delivery History</h3><div class="tablewrap"><table><thead><tr><th>Date Delivered</th><th>Product</th><th>Quantity Delivered</th><th>Action</th></tr></thead><tbody id="deliveryRows"></tbody></table></div>
+<div class="actions"><button class="danger" onclick="resetInventory()">Reset Entire Product Inventory</button></div></div>
+</section>
+
+<section id="history" class="panel">
+<div class="card"><h2>Data Backup</h2><p class="note">Download a copy of your remittance and inventory records as JSON. You can also export tables as CSV.</p>
+<div class="actions"><button class="primary" onclick="backupJSON()">Download Full Backup</button><button onclick="exportCSV('remittance')">Export Remittance CSV</button><button onclick="exportCSV('deliveries')">Export Delivery CSV</button><label style="display:inline-flex;align-items:center;gap:8px;background:#e2e8f0;padding:10px 14px;border-radius:8px;cursor:pointer">Import Backup <input id="importFile" type="file" accept=".json,application/json" style="display:none" onchange="importJSON(event)"></label></div>
+</div>
+<div class="card"><h3>Reset Selected Product</h3><p class="note">Choose one product to clear only its delivery records and delivered total. Other products and remittance records will remain unchanged.</p>
+<div class="grid"><div><label for="resetProduct">Select Product</label><select id="resetProduct"></select></div></div>
+<div class="actions"><button class="danger" onclick="resetOneProduct()">Reset Selected Product Only</button></div></div>
+<div class="card"><h3>Reset Remittance Only</h3><p class="note">This clears remittance records only. Product inventory will not be affected.</p><button class="danger" onclick="resetRemittances()">Reset Remittance Records</button></div>
+</section>
+<footer>REMIT PRO • Local browser storage</footer>
+</main>
+<script>
+const PRODUCT_NAMES=["Harina","Rice","Softdrink","Mantika","Toyo","Langgaw","Ketchup","Supot","Tayni"];
+const KEY="remitPro_v1_data";
+let db=loadDB();
+function loadDB(){try{const x=JSON.parse(localStorage.getItem(KEY));return {remittances:Array.isArray(x?.remittances)?x.remittances:[],deliveries:Array.isArray(x?.deliveries)?x.deliveries:[]}}catch(e){return {remittances:[],deliveries:[]}}}
+function save(){localStorage.setItem(KEY,JSON.stringify(db));render()}
+function money(n){return "₱"+Number(n||0).toLocaleString("en-PH",{minimumFractionDigits:2,maximumFractionDigits:2})}
+function val(id){return Number(document.getElementById(id).value)||0}
+function setToday(id){document.getElementById(id).value=new Date().toISOString().slice(0,10)}
+function showTab(id){document.querySelectorAll(".panel").forEach(x=>x.classList.toggle("active",x.id===id));document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x.dataset.tab===id));render()}
+document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>showTab(b.dataset.tab)));
+function fillProducts(){["product","resetProduct"].forEach(id=>{const s=document.getElementById(id);s.innerHTML=PRODUCT_NAMES.map(p=>`<option>${p}</option>`).join("")})}
+document.getElementById("remitForm").addEventListener("submit",e=>{
+ e.preventDefault();const record={id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),date:document.getElementById("rDate").value,riceIn:val("riceIn"),riceOut:val("riceOut"),softIn:val("softIn"),softOut:val("softOut"),available:val("available"),sale:val("sale"),leftover:val("leftover"),damage:val("damage"),expenses:val("expenses"),salary:val("salary"),remitted:val("remitted")};
+ db.remittances.push(record);save();e.target.reset();setToday("rDate");alert("Remittance saved successfully!");
+});
+document.getElementById("deliveryForm").addEventListener("submit",e=>{
+ e.preventDefault();const qty=Number(document.getElementById("deliveredQty").value);if(!Number.isInteger(qty)||qty<1){alert("Enter a delivered quantity of at least 1.");return}
+ db.deliveries.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),product:document.getElementById("product").value,qty,date:document.getElementById("deliveredDate").value});save();e.target.reset();setToday("deliveredDate");alert("Delivered quantity saved successfully!");
+});
+function render(){
+ const total=(key)=>db.remittances.reduce((s,r)=>s+Number(r[key]||0),0);
+ document.getElementById("dashRemit").textContent=money(total("remitted"));
+ document.getElementById("dashSales").textContent=money(total("sale"));
+ document.getElementById("dashProducts").textContent=PRODUCT_NAMES.length;
+ document.getElementById("dashDelivered").textContent=db.deliveries.reduce((s,d)=>s+d.qty,0).toLocaleString();
+ const rr=document.getElementById("remitRows");rr.innerHTML=db.remittances.slice().sort((a,b)=>b.date.localeCompare(a.date)).map(r=>`<tr><td>${esc(r.date)}</td><td>${r.riceIn}/${r.riceOut}</td><td>${r.softIn}/${r.softOut}</td><td>${money(r.sale)}</td><td>${money(r.expenses)}</td><td>${money(r.salary)}</td><td class="amount">${money(r.remitted)}</td><td><button class="danger" onclick="deleteRemit('${r.id}')">Delete</button></td></tr>`).join("")||'<tr><td colspan="8" class="empty">No remittance records yet.</td></tr>';
+ const pr=document.getElementById("productRows");pr.innerHTML=PRODUCT_NAMES.map(p=>{let n=db.deliveries.filter(d=>d.product===p).reduce((s,d)=>s+d.qty,0);return `<tr><td>${p}</td><td class="amount">${n.toLocaleString()}</td><td><button class="danger" onclick="resetProductByName('${p}')">Reset This Product</button></td></tr>`}).join("");
+ const dr=document.getElementById("deliveryRows");dr.innerHTML=db.deliveries.slice().sort((a,b)=>b.date.localeCompare(a.date)).map(d=>`<tr><td>${esc(d.date)}</td><td>${esc(d.product)}</td><td>${d.qty.toLocaleString()}</td><td><button class="danger" onclick="deleteDelivery('${d.id}')">Delete</button></td></tr>`).join("")||'<tr><td colspan="4" class="empty">No delivered products recorded yet.</td></tr>';
+}
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function deleteRemit(id){if(confirm("Delete this remittance entry only?")){db.remittances=db.remittances.filter(x=>x.id!==id);save()}}
+function deleteDelivery(id){if(confirm("Delete this delivery entry only?")){db.deliveries=db.deliveries.filter(x=>x.id!==id);save()}}
+function resetRemittances(){if(confirm("Reset ALL remittance records? Product inventory will NOT be changed.")){db.remittances=[];save();alert("Remittance records cleared.")}}
+function resetProductByName(name){if(confirm("Reset delivery records for "+name+" only? Other products and remittance records will remain.")){db.deliveries=db.deliveries.filter(d=>d.product!==name);save();alert(name+" inventory reset.")}}
+function resetOneProduct(){resetProductByName(document.getElementById("resetProduct").value)}
+function resetInventory(){if(confirm("Reset ALL product delivery records for every product? Remittance records will NOT be changed.")){db.deliveries=[];save();alert("Product inventory reset.")}}
+function download(name,content,type){const blob=new Blob([content],{type}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;a.click();URL.revokeObjectURL(a.href)}
+function backupJSON(){download("remit-pro-backup-"+new Date().toISOString().slice(0,10)+".json",JSON.stringify(db,null,2),"application/json")}
+function csv(rows){return rows.map(row=>row.map(v=>'"'+String(v??"").replace(/"/g,'""')+'"').join(",")).join("\n")}
+function exportCSV(which){let rows;if(which==="remittance"){rows=[["Date","Rice In","Rice Out","Softdrink In","Softdrink Out","Available Stock","Sales","Left Over","Short/Damage","Expenses","Suweldo","Remittance"],...db.remittances.map(r=>[r.date,r.riceIn,r.riceOut,r.softIn,r.softOut,r.available,r.sale,r.leftover,r.damage,r.expenses,r.salary,r.remitted])]}else{rows=[["Date Delivered","Product","Quantity Delivered"],...db.deliveries.map(d=>[d.date,d.product,d.qty])]}download(which+"-records.csv","\uFEFF"+csv(rows),"text/csv;charset=utf-8")}
+function importJSON(e){const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const x=JSON.parse(reader.result);if(!Array.isArray(x.remittances)||!Array.isArray(x.deliveries))throw Error();if(!confirm("Import backup and replace current records? Download a backup first if needed."))return;db={remittances:x.remittances,deliveries:x.deliveries};save();alert("Backup imported.")}catch(err){alert("Invalid backup file.")}e.target.value=""};reader.readAsText(file)}
+fillProducts();setToday("rDate");setToday("deliveredDate");render();
+</script>
+</body></html>

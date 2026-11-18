@@ -23,7 +23,9 @@ const inventoryProducts = [
     "Langgaw",
     "Ketchup",
     "Supot",
-    "Tayni"
+    "Tayni" ,
+     "Uling",
+     "Constarch",
 ];
 
 
